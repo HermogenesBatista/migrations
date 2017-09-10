@@ -30,7 +30,12 @@ optional arguments:
   --port PORT           Port used on connection with database
   --charset CHARSET     Charset of connection with database
   -mg MIGRATIONS_PATH, --migrations_path MIGRATIONS_PATH
-                        Absolute path with files to execute migrations```   
-
+                        Absolute path with files to execute migrations
+```   
+Finally we can run:
 ```
-migrations -t mysql -u root -p 123456 -db teste -H localhost --port 3306 -mg `pwd`/migrations```
+migrations -t mysql -u USER -p PASSWORD -db DATABASE -H HOST --port PORT -mg /absolute/path/with/migrations/files/
+```
+
+## Limits
+At this moment, we have only have support to `MySQL`, but if you want to contribute, feel free to create Pull Request with new one connector.
