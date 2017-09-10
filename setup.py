@@ -9,7 +9,7 @@ setup(
     packages=['migrations', 'migrations.connection'],
     entry_points={
           'console_scripts': [
-              'migrations = migrations.main.__main__:execute_command_line'
+              'migrations = migrations.main:execute_command_line'
           ]
       },
     install_requires=[

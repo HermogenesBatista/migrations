@@ -10,7 +10,7 @@ def execute_command_line():
     parser = argparse.ArgumentParser(
         description='Command line to manage database transformations (migrations)')
     parser.add_argument('-t', '--connection_type', type=str,
-                        help='Type of connection (such as mysql, postegree)'
+                        help='Type of connection (such as mysql, postegresql)'
                              ' you want to connect')
     parser.add_argument('-u', '--user', type=str,
                         help='User used on connection with database')
@@ -25,7 +25,7 @@ def execute_command_line():
     parser.add_argument('--charset', type=str, default='utf8mb4',
                         help='Charset of connection with database')
     parser.add_argument('-mg', '--migrations_path', type=str,
-                        help='Path to looking for files to execute migrations')
+                        help='Absolute path with files to execute migrations')
 
     args = parser.parse_args()
     connection_type = args.connection_type
