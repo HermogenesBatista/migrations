@@ -4,6 +4,8 @@ from __future__ import absolute_import, unicode_literals
 import os
 import glob
 
+from stat import S_ISREG, ST_CTIME, ST_MODE
+
 
 class BaseConnector(object):
     migration_table = 'migrations'
@@ -41,8 +43,11 @@ class BaseConnector(object):
 
     def manage_migrations_not_applied(self, filepath):
         files = glob.glob("{}/*.sql".format(filepath))
-        files.sort(key=os.path.getmtime)
-        for file in files:
+        entries = ((os.stat(path), path) for path in files)
+        entries = ((stat[ST_CTIME], path)
+                   for stat, path in entries if S_ISREG(stat[ST_MODE]))
+
+        for cdate, file in entries:
             filename = file.split('/')[-1].replace('.sql', '')
             with open(file, 'r') as reader:
                 # Execute it only with trusted code
