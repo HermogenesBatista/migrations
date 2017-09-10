@@ -62,7 +62,6 @@ def execute_command_line():
             config[key] = value
 
     migration_path = args.migrations_path or os.getcwd()
-    print 'File? ', migration_path
 
     manager = ManagerClass(**config)
 
