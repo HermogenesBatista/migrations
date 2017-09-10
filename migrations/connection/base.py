@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
+import os
 import glob
 
 
@@ -40,6 +41,7 @@ class BaseConnector(object):
 
     def manage_migrations_not_applied(self, filepath):
         files = glob.glob("{}/*.sql".format(filepath))
+        files.sort(key=os.path.getmtime)
         for file in files:
             filename = file.split('/')[-1].replace('.sql', '')
             with open(file, 'r') as reader:
