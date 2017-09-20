@@ -20,17 +20,24 @@ class MysqlConnector(BaseConnector):
                 password=self.password,
                 db=self.database,
                 charset=self.charset,
-                cursorclass=pymysql.cursors.DictCursor)
+                cursorclass=pymysql.cursors.DictCursor,
+                connect_timeout=5,
+                read_timeout=5,
+                write_timeout=5)
         return self.connection
 
     def execute(self, sql, must_return=False, *args):
         connection = self.connect()
         try:
             with connection.cursor() as cursor:
-                cursor.execute(sql, args=args)
-                if must_return:
-                    return cursor.fetchone()
-                else:
+                part_of_sql = sql.split(';')
+                for sql_minor in part_of_sql:
+                    sql_minor = sql_minor.strip()
+                    if sql_minor:
+                        cursor.execute(sql_minor, args=args)
+                        if must_return:
+                            return cursor.fetchone()
+                if not must_return:
                     connection.commit()
 
         finally:

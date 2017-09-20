@@ -18,8 +18,7 @@ class BaseConnector(object):
     '''
     sql_check_applied = '''
     SELECT * FROM migrations WHERE filename=%s'''
-    sql_insert_migration_applied = '''
-    INSERT INTO migrations(filename) VALUES (%s)'''
+    sql_insert_migration_applied = '''INSERT INTO migrations(filename) VALUES (%s);'''
 
     def __init__(self, user, password, database, host='localhost',
                  port=3306, charset='utf8mb4'):
