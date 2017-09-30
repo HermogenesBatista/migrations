@@ -20,10 +20,7 @@ class MysqlConnector(BaseConnector):
                 password=self.password,
                 db=self.database,
                 charset=self.charset,
-                cursorclass=pymysql.cursors.DictCursor,
-                connect_timeout=5,
-                read_timeout=5,
-                write_timeout=5)
+                cursorclass=pymysql.cursors.DictCursor)
         return self.connection
 
     def execute(self, sql, must_return=False, *args):
