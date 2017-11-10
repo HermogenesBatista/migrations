@@ -25,18 +25,22 @@ class MysqlConnector(BaseConnector):
 
     def execute(self, sql, must_return=False, *args):
         connection = self.connect()
+        sql_minor = ""
         try:
             with connection.cursor() as cursor:
-                part_of_sql = sql.split(';')
+                part_of_sql = sql.decode('utf-8').split(';')
                 for sql_minor in part_of_sql:
                     sql_minor = sql_minor.strip()
                     if sql_minor:
                         cursor.execute(sql_minor, args=args)
                         if must_return:
                             return cursor.fetchone()
-                if not must_return:
-                    connection.commit()
-
+            connection.commit()
+        except Exception as e:
+            print "-----"
+            print "Minor part of sql: "
+            print sql_minor
+            raise e
         finally:
             connection.close()
             self.connection = None
