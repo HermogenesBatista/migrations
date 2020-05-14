@@ -54,7 +54,7 @@ def execute_command_line():
 
     # remove empty parameters
     config = {}
-    for key, value in tmp_config.iteritems():
+    for key, value in tmp_config.items():
         if key in required and not value:
             raise Exception("You must set value for: '{}'".format(key))
 
