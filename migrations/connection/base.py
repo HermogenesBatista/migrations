@@ -63,6 +63,6 @@ class BaseConnector(object):
         return result
 
     def apply_migrations(self, content, filename):
-        print 'Applying migration: {}'.format(filename)
+        print('Applying migration: {}'.format(filename))
         self.execute(content)
         self.execute(self.sql_insert_migration_applied, False, filename)
