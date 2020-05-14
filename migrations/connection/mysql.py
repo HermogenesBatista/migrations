@@ -37,9 +37,9 @@ class MysqlConnector(BaseConnector):
                             return cursor.fetchone()
             connection.commit()
         except Exception as e:
-            print "-----"
-            print "Minor part of sql: "
-            print sql_minor
+            print("-----")
+            print("Minor part of sql: ")
+            print(sql_minor)
             raise e
         finally:
             connection.close()
