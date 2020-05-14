@@ -28,7 +28,10 @@ class MysqlConnector(BaseConnector):
         sql_minor = ""
         try:
             with connection.cursor() as cursor:
-                part_of_sql = sql.decode('utf-8').split(';')
+                try:
+                    part_of_sql = sql.decode('utf-8').split(';')
+                except:
+                    part_of_sql = sql.split(';')
                 for sql_minor in part_of_sql:
                     sql_minor = sql_minor.strip()
                     if sql_minor:
